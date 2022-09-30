@@ -1,2 +1,2 @@
-# personal-python-project-template
-Personal template for python project with source directory
+# pimap
+Associates python object with other objects.
