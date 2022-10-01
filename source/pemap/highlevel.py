@@ -1,5 +1,6 @@
 from pemap import block
 from pemap import items
+from pemap import value
 
 
 __all__ = [
@@ -22,7 +23,10 @@ __all__ = [
     "find_item_by_type",
 ]
 
-def create_item(_object, value=None, **kwargs):
+# Default value to use when value not provided.
+default_value = value.Value.get_default_value()
+
+def create_item(_object, value=default_value, **kwargs):
     '''Creates item object containing object and its value.
 
     _reference: Reference

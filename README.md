@@ -65,9 +65,11 @@ of `pemap.create_block()` which does not take into account nested blocks.
 # Create first block with items
 first_block_items = [marry_item, john_item, ricky_item]
 first_block = pemap.create_block(items)
+# Now create item from block and give value of 300.
+first_block_item = pemap.create_item(first_block, 300)
 
 # Create item for second block
-first_block_item = pemap.create_item(first_block)
+first_block_item = pemap.create_item(first_block_item)
 
 # Create ben item and followed by second block.
 # Realise that second block contains first block with items.
