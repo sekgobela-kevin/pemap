@@ -1,5 +1,5 @@
-from pimap import reference as reference_
-from pimap import value as value_
+from pemap import reference as reference_
+from pemap import value as value_
 
 
 class BaseItem():

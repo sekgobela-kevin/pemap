@@ -1,4 +1,4 @@
-from pimap import reference
+from pemap import reference
 
 
 class Value(reference.Reference):

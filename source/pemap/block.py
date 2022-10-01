@@ -1,5 +1,5 @@
-from pimap import items as items_
-from pimap import value as value_
+from pemap import items as items_
+from pemap import value as value_
 
 from collections import defaultdict
 
@@ -249,7 +249,7 @@ class DeepBlock(Block):
 
 
 if __name__ == "__main__":
-    from pimap import reference
+    from pemap import reference
 
     item_object = items_.Item(reference.Reference("Ruth"), "b")
     item_object2 = items_.Item("Marry", "a")

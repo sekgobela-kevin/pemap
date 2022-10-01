@@ -1,15 +1,15 @@
-from pimap.reference import Reference
-from pimap.value import Value
+from pemap.reference import Reference
+from pemap.value import Value
 
-from pimap.items import BaseItem
-from pimap.items import Item
+from pemap.items import BaseItem
+from pemap.items import Item
 
-from pimap.block import BaseBlock
-from pimap.block import Block
-from pimap.block import DeepBlock
+from pemap.block import BaseBlock
+from pemap.block import Block
+from pemap.block import DeepBlock
 
-from pimap.highlevel import *
+from pemap.highlevel import *
 
 
-__name__ = "pimap"
+__name__ = "pemap"
 ___version__ = "0.0.1"

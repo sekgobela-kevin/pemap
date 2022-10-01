@@ -1,5 +1,5 @@
-from pimap import block
-from pimap import items
+from pemap import block
+from pemap import items
 
 
 __all__ = [

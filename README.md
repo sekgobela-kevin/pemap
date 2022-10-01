@@ -1,5 +1,5 @@
-# pimap
-Pimap is simple python library for associating ordinary python object
+# pemap
+Pemap is simple python library for associating ordinary python object
 with value. Value for object helps in performing most operations on object
 and getting more information on it.
 
@@ -13,14 +13,14 @@ block may contains another block if that item is used within block.
 ### Install
 Enter this to your command-line application:
 ```bash
-pip install pimap
+pip install pemap
 ```
 
 ### Usage
 
-First import pimap to use its functions
+First import pemap to use its functions
 ```python
-import pimap
+import pemap
 ```
 
 Creates item which is combination of object with its value. Realise that 
@@ -29,9 +29,9 @@ item can be accessed using methods.
 
 
 ```python
-marry_item = pimap.create_item("Marry", 30)
-john_item = pimap.create_item("John", 10)
-ricky_item = pimap.create_item("Ricky", 40)
+marry_item = pemap.create_item("Marry", 30)
+john_item = pemap.create_item("John", 10)
+ricky_item = pemap.create_item("Ricky", 40)
 
 marry_item.get_object() # 'Marry'
 marry_item.get_value() # 30
@@ -48,7 +48,7 @@ them based on their values.
 # List of items to use with block
 items = [marry_item, john_item, ricky_item]
 # Creates block object containing items
-items_block = pimap.create_block(items)
+items_block = pemap.create_block(items)
 
 items_block.get_values() # ['Marry', 'John', 'Ricky']
 items_block.get_objects() # ['Marry', 'John', 'Ricky']
@@ -58,22 +58,22 @@ items_block.get_objects() # ['Marry', 'John', 'Ricky']
 
 It is possible to have nested blocks in that items of block contain another
 block. Accessing items within nested block can be hard with previous 
-example. But it can be simple if using `pimap.create_deep_block()` instead
-of `pimap.create_block()` which does not take into account nested blocks.
+example. But it can be simple if using `pemap.create_deep_block()` instead
+of `pemap.create_block()` which does not take into account nested blocks.
 
 ```python
 # Create first block with items
 first_block_items = [marry_item, john_item, ricky_item]
-first_block = pimap.create_block(items)
+first_block = pemap.create_block(items)
 
 # Create item for second block
-first_block_item = pimap.create_item(first_block)
+first_block_item = pemap.create_item(first_block)
 
 # Create ben item and followed by second block.
 # Realise that second block contains first block with items.
-ben_item = pimap.create_item("Ben", 100)
+ben_item = pemap.create_item("Ben", 100)
 second_block_items = [ben_item, first_block_item]
-second_block = pimap.create_deep_block(second_block_items)
+second_block = pemap.create_deep_block(second_block_items)
 
 # Underlying objects from first block can be accessed in second block.
 # First block has been eliminated but its items remained.
@@ -86,7 +86,7 @@ useful data like block value.
 
 ```python
 items = [marry_item, john_item, ricky_item]
-items_block = pimap.create_block(items)
+items_block = pemap.create_block(items)
 
 items_block.to_tuple() 
 # ((10, 'John'), (30, 'Marry'), (40, 'Ricky'))
@@ -101,11 +101,11 @@ Most of block methods are available as functions ready to be used on items
 without creating block object. 
 ```python
 items = [marry_item, john_item, ricky_item]
-pimap.items_to_tuple(items) 
+pemap.items_to_tuple(items) 
 # ((10, 'John'), (30, 'Marry'), (40, 'Ricky'))
-pimap.extract_objects(items)
+pemap.extract_objects(items)
 # ['Marry', 'John', 'Ricky']
 ```
 
 ### License
-[MIT license](https://github.com/sekgobela-kevin/pimap/blob/main/LICENSE)
+[MIT license](https://github.com/sekgobela-kevin/pemap/blob/main/LICENSE)
