@@ -21,6 +21,11 @@ __all__ = [
 
     "find_items_by_type",
     "find_item_by_type",
+
+    "find_true_item",
+    "find_true_items",
+    "find_false_item",
+    "find_false_items"
 ]
 
 # Default value to use when value not provided.
@@ -203,3 +208,23 @@ def find_item_by_type(items, _type, flatten=False):
     '''Finds item with type matching provided type'''
     block_object = create_mapping(items, flatten=flatten, strict=False)
     return block_object.get_item_by_type(_type)
+
+def find_true_items(items, flatten=False):
+    '''Gets items that evaluates to true.'''
+    block_object = create_mapping(items, flatten=flatten, strict=False)
+    return block_object.get_true_items()
+
+def find_true_item(items, flatten=False):
+    '''Gets first item evaluating to true.'''
+    block_object = create_mapping(items, flatten=flatten, strict=False)
+    return block_object.get_true_item()
+
+def find_false_items(items, flatten=False):
+    '''Gets items that evaluates to false.'''
+    block_object = create_mapping(items, flatten=flatten, strict=False)
+    return block_object.get_false_items()
+
+def find_false_item(items, flatten=False):
+    '''Gets first item evaluating to false.'''
+    block_object = create_mapping(items, flatten=flatten, strict=False)
+    return block_object.get_false_item()

@@ -109,5 +109,27 @@ pemap.extract_objects(items)
 # ['Marry', 'John', 'Ricky']
 ```
 
+Here is example using booleans instead of numbers and it exposes few
+useful methods. Those methods allows getting item based wheather its value 
+evaluates to _True_ or _False_.
+```python
+# Creates items with values being booleans
+marry_item = pemap.create_item("Marry", True)
+john_item = pemap.create_item("John", False)
+ricky_item = pemap.create_item("Ricky", 0)
+
+# Creates list with items
+items = [marry_item, john_item, ricky_item]
+block = pemap.create_block(items)
+
+# Gets first item that evaluates to true.
+item = block.get_true_item()
+item.get_object() # "Marry"
+
+# Gets all items evaluating to false.
+items = block.get_false_items()
+pemap.extract_objects(items)  # ['John', 'Ricky']
+```
+
 ### License
 [MIT license](https://github.com/sekgobela-kevin/pemap/blob/main/LICENSE)

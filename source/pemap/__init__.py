@@ -12,4 +12,4 @@ from pemap.highlevel import *
 
 
 __name__ = "pemap"
-___version__ = "0.0.1"
+___version__ = "0.1.0"

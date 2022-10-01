@@ -31,7 +31,7 @@ class BaseBlock():
     @classmethod
     def extract_objects_from_items(cls, items):
         '''Gets underlying object from item object'''
-        return [_item.get_value() for _item in items]
+        return [_item.get_object() for _item in items]
 
     @classmethod
     def sort_items_by_value(cls, items):
@@ -40,10 +40,71 @@ class BaseBlock():
 
     def filter_items(self, key=None, limit=None):
         '''Filters item objects filtered by key function'''
-        filtered_items = list(filter(key, self._items))
-        if limit != None:
-            filtered_items = filtered_items[:limit]
-        return filtered_items
+        if limit == None: 
+            items = self._items
+        else:
+            items = self._items[:limit]
+        return list(filter(key, items))
+
+
+
+    def get_values(self):
+        '''Gets values of block item objects'''
+        return [_item.get_value() for _item in self._items]
+
+    def get_items_by_value(self, value):
+        '''Gets item objects matching value'''
+        def func(_item):
+            return _item.get_value() == value
+        return self.filter_items(func)
+
+    def get_item_by_value(self, value):
+        '''Gets first item matching value'''
+        items = self.get_items_by_value(value)
+        if items: return items[0]
+
+    def get_items_by_values(self, values):
+        '''Gets item objects matching any of values'''
+        def func(_item):
+            return _item.get_value() in values
+        return self.filter_items(func)
+
+    def get_item_by_values(self, values):
+        '''Gets first item matching any of values'''
+        items = self.get_items_by_values(values)
+        if items: return items[0]
+
+    def get_items_by_type(self, _type):
+        '''Gets item objects of provided type'''
+        # Type is defined as type of object underlying item.
+        def func(_item):
+            return isinstance(_item.get_value(), _type)
+        return self.filter_items(func)   
+
+    def get_item_by_type(self, _type):
+        '''Gets first item of provided type'''
+        items = self.get_items_by_type(_type)
+        if items: return items[0] 
+
+
+    def get_true_items(self):
+        # Gets items that evaluates to true.
+        return self.filter_items(lambda item: item.get_value())
+
+    def get_true_item(self):
+        # Gets first item evaluating to true.
+        items = self.filter_items(lambda item: item.get_value(), 1)
+        if items: return items[0]
+
+    def get_false_items(self):
+        # Gets items that evaluates to false.
+        return self.filter_items(lambda item: not item.get_value())
+
+    def get_false_item(self):
+        # Gets first item evaluating to false.
+        items = self.filter_items(lambda item: not item.get_value(), 1)
+        if items: return items[0]
+
 
 
     def to_tuple(self):
@@ -153,43 +214,6 @@ class Block(BaseBlock):
         self._items = new_items
         #self._items_dict = dict(self._to_multi_dict())
 
-    def get_values(self):
-        '''Gets values of block item objects'''
-        return [_item.get_value() for _item in self._items]
-
-    def get_items_by_value(self, value):
-        '''Gets item objects matching value'''
-        def func(_item):
-            return _item.get_value() == value
-        return self.filter_items(func)
-
-    def get_item_by_value(self, value):
-        '''Gets first item matching value'''
-        items = self.get_items_by_value(value)
-        if items: return items[0]
-
-    def get_items_by_values(self, values):
-        '''Gets item objects matching any of values'''
-        def func(_item):
-            return _item.get_value() in values
-        return self.filter_items(func)
-
-    def get_item_by_values(self, values):
-        '''Gets first item matching any of values'''
-        items = self.get_items_by_values(values)
-        if items: return items[0]
-
-    def get_items_by_type(self, _type):
-        '''Gets item objects of provided type'''
-        # Type is defined as type of object underlying item.
-        def func(_item):
-            return isinstance(_item.get_value(), _type)
-        return self.filter_items(func)   
-
-    def get_item_by_type(self, _type):
-        '''Gets first item of provided type'''
-        items = self.get_items_by_type(_type)
-        if items: return items[0] 
 
 
 class DeepBlock(Block):
