@@ -14,10 +14,6 @@ class BaseItem():
     
     Remember that this class internally creates reference object if 
     reference argument is not Reference object.'''
-    # _value_attrs = (object attr, object method)
-    # Used for getting value from object.
-    _value_attrs = ("value", "get_value") 
-    _default_value_attrs = ("value", "get_value") 
     # Value class/type to use.
     _value_type = value_.Value
 
@@ -46,30 +42,26 @@ class BaseItem():
         self._setup_value(value)
 
     @classmethod
-    def get_value_attr(cls):
-        return cls._value_attrs[0]
+    def get_value_type(cls):
+        return cls._value_type
 
     @classmethod
-    def get_value_method(cls):
-        return cls._value_attrs[1]
-
-    @classmethod
-    def get_default_value(cls):
-        return cls._value_type.get_default_value()
+    def get_value_name(cls):
+        return cls._value_type.get_name()
 
     def _setup_value(self, value):
         # Setup value for item.
         # This method is not meant to be overiden(take care)
-        if value == self.get_default_value():
+        if value == self._value_type.get_default_value():
             # Sets up variables to be used to hget value
             _object = self.get_object()
-            value_attr = self.get_value_attr()
-            value_method = self.get_value_method()
+            value_attr_name = self._value_type.get_value_attr_name()
+            value_method_name = self._value_type.get_value_method_name()
             # Attempt to get value from object.
-            if hasattr(_object, value_attr):
-                value = getattr(_object, value_attr)
-            elif hasattr(_object, value_method):
-                value = getattr(_object, value_method)()
+            if hasattr(_object, value_attr_name):
+                value = getattr(_object, value_attr_name)
+            elif hasattr(_object, value_method_name):
+                value = getattr(_object, value_method_name)()
             else:
                 err_msg = "Cannot get {0} from object of type " +\
                     "'{1}', please provide {0} or define " +\
@@ -78,14 +70,16 @@ class BaseItem():
                 type_name = _object.__class__.__name__
                 value_name = self._value_type.get_name()
                 # Format string with those variables.
-                err_msg = err_msg.format(value_name, type_name, value_method, 
-                value_attr)
+                err_msg = err_msg.format(value_name, type_name, value_method_name, 
+                value_attr_name)
                 raise AttributeError(err_msg)
-        # Now set value attribute using Value type.
-        if self.get_default_value() == value:
+        # Value for item cann
+        if self._value_type.get_default_value() == value:
             type_name = _object.__class__.__name__
-            value_name = self._value_type.get_name()
-            err_msg = "Item {} cannot of type '{}'"
+            value_name = self._value_type.get_name().capitalize()
+            err_msg = "{} for item cannot be '{}'"
+            raise ValueError(err_msg.format(value_name, type_name))
+        # Now set value attribute using Value type.
         self._value = self._value_type(value)
 
     def _setup_reference(self, reference):
@@ -102,7 +96,7 @@ class BaseItem():
         else:
             self._reference = reference_.Reference.to_reference(reference)
             if not isinstance(reference, self._type):
-                err_msg = "object should be instance of {}, not {}"
+                err_msg = "object should be type {}, not {}"
                 raise TypeError(err_msg.format(reference, self._type))
 
     @classmethod
@@ -123,19 +117,19 @@ class BaseItem():
         return self._value.get_value(*args, **kwargs)
 
     def get_reference(self):
-        '''Gets underling reference object'''
+        # Gets underling reference object
         return self._reference
 
     def get_type(self):
-        '''Gets type of underlying reference'''
+        # Gets type of underlying reference
         return self._reference.get_type()
 
     def get_object(self):
-        '''Gets object of underlying reference'''
+        # Gets object of underlying reference
         return self._reference.get_object()
 
     def copy(self):
-        '''Creates a copy of item'''
+        # Creates a copy of item
         return self.__class__(self._reference, self._value, self._type, 
         self._strict)
 

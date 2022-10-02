@@ -151,8 +151,8 @@ class Block(BaseBlock):
     When `strict` is True, block instance will not allow item containing
     another block. This is by default set to True to avoid confusion
     but can be set to True to allow nested block instances.'''
-    # Default value when value not provided.
-    _default_value = items_.Item.get_default_value()
+    # Type of item type items of block are expected.
+    _item_type = items_.Item
 
     def __init__(self, items, _type=object, strict=True):
         '''
