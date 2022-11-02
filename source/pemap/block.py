@@ -6,6 +6,9 @@ from collections import defaultdict
 
 class BaseBlock():
     '''Wraps collection of Item objects and associate them with value.'''
+    # Type of item type items of block are expected.
+    _item_type = items_.Item
+
     def __init__(self, items, _type=object) -> None:
         self._items = items
         self._type = _type
@@ -14,11 +17,11 @@ class BaseBlock():
         # Returns item objects from iterator of objects.
         # Item objects will be returned unchanged.
         # Non item objects will  result in item objects.
-        return  [items_.Item.to_item(_item) for _item in _items_like]
+        return  [self._item_type.to_item(_item) for _item in _items_like]
 
     def copy_items(self):
         # Copies current items of block
-        return [self._item.copy() for _item in self._items]
+        return [_item.copy() for _item in self._items]
 
     def get_items(self):
         # Returns items stored in block object
@@ -78,7 +81,7 @@ class BaseBlock():
         '''Gets item objects of provided type'''
         # Type is defined as type of object underlying item.
         def func(_item):
-            return isinstance(_item.get_value(), _type)
+            return isinstance(_item.get_object(), _type)
         return self.filter_items(func)   
 
     def get_item_by_type(self, _type):
@@ -151,8 +154,6 @@ class Block(BaseBlock):
     When `strict` is True, block instance will not allow item containing
     another block. This is by default set to True to avoid confusion
     but can be set to True to allow nested block instances.'''
-    # Type of item type items of block are expected.
-    _item_type = items_.Item
 
     def __init__(self, items, _type=object, strict=True):
         '''

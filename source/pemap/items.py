@@ -110,7 +110,7 @@ class BaseItem():
 
     def set_value(self, value):
         # Sets value/object behind item.
-        return self._value_type(value)
+        return self._value.set_value(value)
     
     def get_value(self, *args, **kwargs):
         # Gets value behind this item.
